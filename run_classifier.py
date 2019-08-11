@@ -356,7 +356,9 @@ class ColaProcessor(DataProcessor):
     return ["0", "1"]
 
   def _create_examples(self, lines, set_type):
-    """Creates examples for the training and dev sets."""
+    """Creates examples for the training and dev sets.
+    Changed original version to have a simpler dataset with
+    labels, text, instead of some other random information"""
     examples = []
     for (i, line) in enumerate(lines):
       # Only the test set has a header
@@ -367,8 +369,8 @@ class ColaProcessor(DataProcessor):
         text_a = tokenization.convert_to_unicode(line[1])
         label = "0"
       else:
-        text_a = tokenization.convert_to_unicode(line[3])
-        label = tokenization.convert_to_unicode(line[1])
+        text_a = tokenization.convert_to_unicode(line[1])
+        label = tokenization.convert_to_unicode(line[0])
       examples.append(
           InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
     return examples
